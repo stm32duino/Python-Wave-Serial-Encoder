@@ -96,7 +96,7 @@ def read_from_port(q, e, e1, e3, arduino, entry, result):
 
                 arduino.write(b"\x01")
                 arduino.flushInput()
-                result.set("Writing on " + entry.get())
+                result.set("Writing on " + (entry.get()).split("/")[-1])
 
                 while arduino.isOpen():
                     ser_bytes = arduino.read(256)
@@ -156,10 +156,10 @@ def save(entry):
     entry.xview_moveto(1)
 
 
-def man_callback():
+def man_callback(w, h):
     readme = tk.Tk()
     readme.title("Python Wave Serial Encoder")
-    readme.geometry("580x260")
+    readme.geometry(str(w) + "x" + str(h))
     text = tk.Label(readme, text="Manual", font="Helvetica 16 bold")
     man = tk.Label(
         readme,
@@ -244,7 +244,10 @@ window.iconphoto(False, tk.PhotoImage(file="st_icon.png"))
 
 # MENU
 menu_widget = tk.Menu(master=window)
-menu_widget.add_command(label="Manual", command=man_callback)
+menu_widget.add_command(
+    label="Manual",
+    command=lambda: man_callback(percent(60, screen_width), percent(50, screen_height)),
+)
 menu_widget.add_command(label="Info", command=info_callback)
 menu_widget.add_command(
     label="Exit", command=lambda: exit_callback(e, e1, e2, e3, queue, arduino)
@@ -286,7 +289,15 @@ entry = tk.Entry(master=frame_dx, width=30, font=font)
 
 # Result
 result = StringVar()
-msg = Label(frame_dx, textvariable=result, borderwidth=2, relief="sunken")
+msg = Label(
+    frame_dx,
+    textvariable=result,
+    borderwidth=2,
+    width=50,
+    relief="sunken",
+    justify=tk.LEFT,
+    anchor="w",
+)
 result.set("")
 
 # Button Start Stop Reset
@@ -348,14 +359,14 @@ frame_sx.pack(fill=tk.BOTH, side=tk.LEFT, expand=True, padx=1, pady=1)
 labelsx.place(x=percent(2, w_fsx), y=percent(2, h_fsx))
 combo.place(x=percent(2, w_fsx), y=percent(8, h_fsx))
 connection.place(x=percent(2, w_fsx), y=percent(16, h_fsx))
-connB.place(x=percent(64, w_fsx), y=percent(8, h_fsx))
-refreshB.place(x=percent(90, w_fsx), y=percent(8, h_fsx))
+connB.place(x=percent(10, w_fsx), y=percent(32, h_fsx))
+refreshB.place(x=percent(50, w_fsx), y=percent(32, h_fsx))
 man.place(x=percent(2, w_fdx), y=percent(2, h_fdx))
 entry.place(x=percent(2, w_fsx), y=percent(8, h_fsx))
 saveB.place(x=percent(70, w_fdx), y=percent(8, h_fdx))
 msg.place(x=percent(2, w_fdx), y=percent(16, h_fdx))
-startB.place(x=percent(10, w_fsx), y=percent(24, h_fsx))
-stopB.place(x=percent(30, w_fsx), y=percent(24, h_fsx))
+startB.place(x=percent(10, w_fsx), y=percent(32, h_fsx))
+stopB.place(x=percent(30, w_fsx), y=percent(32, h_fsx))
 
 
 old_devices = enumerate_serial_devices()
