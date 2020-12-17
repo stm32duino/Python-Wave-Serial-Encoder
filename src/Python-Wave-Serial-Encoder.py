@@ -319,7 +319,7 @@ img = Label(frame_dx, image=render)
 img.image = render
 w = img.winfo_reqwidth()
 h = img.winfo_reqheight()
-img.place(x=w_fdx - (w + percent(5, w_fdx)), y=h_fdx - (h + percent(5, h_fdx)))
+img.place(x=w_fdx - (w + percent(8, w_fdx)), y=h_fdx - (h + percent(8, h_fdx)))
 
 # FRAME LEFT
 
@@ -348,7 +348,7 @@ frame_sx.pack(fill=tk.BOTH, side=tk.LEFT, expand=True, padx=1, pady=1)
 labelsx.place(x=percent(2, w_fsx), y=percent(2, h_fsx))
 combo.place(x=percent(2, w_fsx), y=percent(8, h_fsx))
 connection.place(x=percent(2, w_fsx), y=percent(16, h_fsx))
-connB.place(x=percent(70, w_fsx), y=percent(8, h_fsx))
+connB.place(x=percent(64, w_fsx), y=percent(8, h_fsx))
 refreshB.place(x=percent(90, w_fsx), y=percent(8, h_fsx))
 man.place(x=percent(2, w_fdx), y=percent(2, h_fdx))
 entry.place(x=percent(2, w_fsx), y=percent(8, h_fsx))
